@@ -6,7 +6,7 @@ local mainapi = {
 		Value = 0.52
 	},
 	HeldKeybinds = {},
-	Keybind = {'RightShift'},
+	Keybind = {'C'},
 	Loaded = false,
 	Libraries = {},
 	Modules = {},
@@ -314,7 +314,7 @@ local function downloadFile(path, func)
 	if not isfile(path) then
 		createDownloader(path)
 		local suc, res = pcall(function()
-			return game:HttpGet('https://raw.githubusercontent.com/7GrandDadPGN/VapeV4ForRoblox/'..readfile('newvape/profiles/commit.txt')..'/'..select(1, path:gsub('newvape/', '')), true)
+			return game:HttpGet('https://raw.githubusercontent.com/Trariviste/CatV5Comeback/'..readfile('newvape/profiles/commit.txt')..'/'..select(1, path:gsub('newvape/', '')), true)
 		end)
 		if not suc or res == '404: Not Found' then
 			error(res)
