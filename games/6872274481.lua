@@ -1994,7 +1994,7 @@ end)
 run(function()
     local InfiniteJump
     local Velocity
-    InfiniteJump = vape.Categories.Modules:CreateModule({
+    InfiniteJump = vape.Categories.Blatant:CreateModule({
         Name = "Infinite Jump",
         Function = function(callback)
             if callback then
