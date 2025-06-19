@@ -8674,3 +8674,26 @@ run(function()
 	})
 end)
 	
+--[[run(function()
+	local function isGoingTo(id) --> only works on multi instances btw
+		if not shared.CatAutoFarm then return false end
+		for i,v in listfiles('newcatvape/communication') do
+			local user = v:gsub('newcatvape/communication', ''):gsub('.txt', '')
+			if user ~= lplr.Name and tonumber(readfile(v)) == tonumber(id) then
+				return true
+			end
+		end
+	end
+
+	AutoWin = vape.Categories.Utility:CreateModule({
+		Name = 'Auto Win',
+		Function = function(callback)
+			if callback then
+				notif('AutoWin', 'Doesn\'t work rn', 10)																												
+				AutoWin:Toggle()
+			end
+		end,
+		Tooltip = 'Automatically wins the game for you'
+	})
+end)]]
+																																																																																																																																																										
