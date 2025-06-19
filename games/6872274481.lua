@@ -2226,7 +2226,8 @@ run(function()
 		Tooltip = 'Lets you sprint with a speed potion.'
 	})
 end)
-	
+
+local antihitting = false																						
 local Attacking
 run(function()
 	local Killaura
