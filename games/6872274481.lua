@@ -1651,7 +1651,7 @@ run(function()
 	end
 
 	AntiFall = vape.Categories.Blatant:CreateModule({
-		Name = 'Anti Fall',
+		Name = 'AntiFall',
 		Function = function(callback)
 			if callback then
 				repeat task.wait() until store.matchState ~= 0 or (not AntiFall.Enabled)
@@ -1955,6 +1955,8 @@ run(function()
     local damageboost = nil
     local damageboostduration = nil
     local damageboostmultiplier = nil
+    local damagedata = {Multi = 0, lastHit = 0}
+
     damageboost = vape.Categories.Blatant:CreateModule({
         Name = 'Damage Boost',
         Tooltip = 'Makes you go faster whenever you take knockback.',
@@ -1962,14 +1964,16 @@ run(function()
             if callback then
                 damageboost:Clean(vapeEvents.EntityDamageEvent.Event:Connect(function(damageTable)
                     local player = damageTable.entityInstance and playersService:GetPlayerFromCharacter(damageTable.entityInstance)
-                    if player and player == lplr and (damageTable.knockbackMultiplier and damageTable.knockbackMultiplier.horizontal and damageTable.knockbackMultiplier.horizontal > 0 or playersService:GetPlayerFromCharacter(damageTable.fromEntity) ~= nil) and not vape.Modules['Long Jump'].Enabled then
-                        damagedata.Multi = damageboostmultiplier.Value --+ (damageTable.knockbackMultiplier.horizontal / 2)
+                    local fromPlayer = damageTable.fromEntity and playersService:GetPlayerFromCharacter(damageTable.fromEntity)
+                    if player == lplr and (damageTable.knockbackMultiplier and damageTable.knockbackMultiplier.horizontal and damageTable.knockbackMultiplier.horizontal > 0 or fromPlayer ~= nil) and not vape.Modules['Long Jump'].Enabled then
+                        damagedata.Multi = damageboostmultiplier.Value
                         damagedata.lastHit = tick() + damageboostduration.Value
                     end
                 end))
             end
         end
     })
+
     damageboostduration = damageboost:CreateSlider({
         Name = 'Duration',
         Min = 0,
@@ -1977,6 +1981,7 @@ run(function()
         Decimal = 20,
         Default = 0.4,
     })
+
     damageboostmultiplier = damageboost:CreateSlider({
         Name = 'Multiplier',
         Min = 0,
