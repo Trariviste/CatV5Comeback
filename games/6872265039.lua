@@ -91,7 +91,7 @@ run(function()
     local InfiniteJump
     local Velocity
     InfiniteJump = vape.Categories.Blatant:CreateModule({
-        Name = "InfiniteJump",
+        Name = "Infinite Jump",
         Function = function(callback)
             if callback then
 				InfiniteJump:Clean(inputService.InputBegan:Connect(function(input, gameProcessed)
