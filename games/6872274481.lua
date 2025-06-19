@@ -2,7 +2,7 @@
 -- Table of user tags and colors
 local taggedUsers = {
     [8484602156] = {
-        Tag = "CatVape DEV",
+        Tag = "CatVape Dev",
         Color = "CC00CC", -- Dark purple
     },
     [8580102063] = {
