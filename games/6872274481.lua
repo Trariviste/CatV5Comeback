@@ -2151,7 +2151,7 @@ run(function()
     end
   end
 
-  texturepack = LunarVape.Categories.Utility:CreateModule({
+  texturepack = vape.Categories.Utility:CreateModule({
     Name = "TexturePack",
     HoverText = "Modifies your renderer",
     Function = function(callback)
