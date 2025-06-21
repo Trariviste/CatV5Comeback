@@ -2050,6 +2050,29 @@ run(function()
 		Max = 25
 	})
 end)
+
+run(function()
+	local InfernalKill = {Enabled = false}
+	InfernalKill = vape.Categories.Modules:CreateModule({
+		["Name"] = "EmberExploit",
+		["Function"] = function(callback)
+			if callback then
+				repeat
+					wait()
+					local tmp = getItem("infernal_saber")
+					if tmp then
+						bedwars.Client:Get('HellBladeRelease'):SendToServer({
+							weapon = tmp.tool;
+							player = game:GetService("Players").LocalPlayer;
+							chargeTime = 0.9;
+						})
+					end
+				until not InfernalKill["Enabled"]
+			end
+		end,
+		["Description"] = "Ember Exploit"
+	})
+end)
 																		
 run(function()
     local damageboost = nil
