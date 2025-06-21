@@ -1960,7 +1960,9 @@ run(function()
 		if plr.Character:FindFirstChild("Humanoid").Health < 0.11 then return false end
 		return true
 	end
+
 	local Slowmode = {Value = 2}
+
 	GodMode = vape.Categories.Blatant:CreateModule({
 		Name = "AntiHit V2",
 		Function = function(callback)
@@ -1968,22 +1970,20 @@ run(function()
 				task.spawn(function()
 					repeat task.wait()
 						local res, msg = pcall(function()
-							if (not vape.Modules.Fly.Enabled) and (not vape.Modules.InfiniteFly.Enabled) then
-								for i, v in pairs(game:GetService("Players"):GetChildren()) do
+							if (not vape.Modules.Fly or not vape.Modules.Fly.Enabled) and (not vape.Modules.InfiniteFly or not vape.Modules.InfiniteFly.Enabled) then
+								for i, v in pairs(game:GetService("Players"):GetPlayers()) do
 									if v.Team ~= lplr.Team and IsAlive(v) and IsAlive(lplr) then
 										if v and v ~= lplr then
-											local TargetDistance = lplr:DistanceFromCharacter(v.Character:FindFirstChild("HumanoidRootPart").CFrame.p)
+											local TargetDistance = lplr:DistanceFromCharacter(v.Character:FindFirstChild("HumanoidRootPart").Position)
 											if TargetDistance < 25 then
 												if not lplr.Character:WaitForChild("HumanoidRootPart"):FindFirstChildOfClass("BodyVelocity") then
 													repeat task.wait() until shared.GlobalStore.matchState ~= 0
-													if not (v.Character.HumanoidRootPart.Velocity.Y < -10*5) then
+													if not (v.Character.HumanoidRootPart.Velocity.Y < -50) then
 														lplr.Character.Archivable = true
-				
 														local Clone = lplr.Character:Clone()
 														Clone.Parent = game.Workspace
 														Clone.Head:ClearAllChildren()
 														gameCamera.CameraSubject = Clone:FindFirstChild("Humanoid")
-					
 														for i,v in pairs(Clone:GetChildren()) do
 															if string.lower(v.ClassName):find("part") and v.Name ~= "HumanoidRootPart" then
 																v.Transparency = 1
@@ -1992,17 +1992,22 @@ run(function()
 																v:FindFirstChild("Handle").Transparency = 1
 															end
 														end
-					
 														lplr.Character:WaitForChild("HumanoidRootPart").CFrame = lplr.Character:WaitForChild("HumanoidRootPart").CFrame + Vector3.new(0,100,0)
-					
 														GodMode:Clean(game:GetService("RunService").RenderStepped:Connect(function()
 															if Clone ~= nil and Clone:FindFirstChild("HumanoidRootPart") then
-																Clone.HumanoidRootPart.Position = Vector3.new(lplr.Character:WaitForChild("HumanoidRootPart").Position.X, Clone.HumanoidRootPart.Position.Y, lplr.Character:WaitForChild("HumanoidRootPart").Position.Z)
+																Clone.HumanoidRootPart.Position = Vector3.new(
+																	lplr.Character:WaitForChild("HumanoidRootPart").Position.X,
+																	Clone.HumanoidRootPart.Position.Y,
+																	lplr.Character:WaitForChild("HumanoidRootPart").Position.Z
+																)
 															end
 														end))
-					
 														task.wait(Slowmode.Value/10)
-														lplr.Character:WaitForChild("HumanoidRootPart").Velocity = Vector3.new(lplr.Character:WaitForChild("HumanoidRootPart").Velocity.X, -1, lplr.Character:WaitForChild("HumanoidRootPart").Velocity.Z)
+														lplr.Character:WaitForChild("HumanoidRootPart").Velocity = Vector3.new(
+															lplr.Character:WaitForChild("HumanoidRootPart").Velocity.X,
+															-1,
+															lplr.Character:WaitForChild("HumanoidRootPart").Velocity.Z
+														)
 														lplr.Character:WaitForChild("HumanoidRootPart").CFrame = Clone.HumanoidRootPart.CFrame
 														gameCamera.CameraSubject = lplr.Character:FindFirstChild("Humanoid")
 														Clone:Destroy()
@@ -2016,11 +2021,12 @@ run(function()
 							end
 						end)
 						if not res then warn(msg) end
-					until (not GodMode.Enabled)
+					until GodMode == nil or not GodMode.Enabled
 				end)
 			end
 		end
 	})
+
 	Slowmode = GodMode:CreateSlider({
 		Name = "Slowmode",
 		Function = function() end,
